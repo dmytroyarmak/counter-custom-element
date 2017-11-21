@@ -1,0 +1,28 @@
+{
+  "name": "counter-custom-element",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmytroyarmak/counter-custom-element.git"
+  },
+  "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmytroyarmak/counter-custom-element/issues"
+  },
+  "homepage": "https://github.com/dmytroyarmak/counter-custom-element#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
