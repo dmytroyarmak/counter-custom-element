@@ -3,26 +3,19 @@ class Counter extends HTMLElement {
     super();
 
     this.initialRender();
-    if (!this.hasAttribute('value')) {
-      this.value = 0;
-      this.renderValue();
-    }
+    this.value = this.hasAttribute('value') ? this.getAttribute('value') : 0;
   }
 
   get value() {
-    return parseInt(this.getAttribute('value'), 10);
+    return this._value;
   }
 
   set value(newValue) {
-    this.setAttribute('value', newValue);
-  }
-
-  static get observedAttributes() {
-    return ['value'];
-  }
-
-  attributeChangedCallback() {
-    this.renderValue();
+    const parsedValue = Math.trunc(newValue);
+    if (!Number.isNaN(parsedValue) && parsedValue !== this._value) {
+      this._value = parsedValue;
+      this.renderValue();
+    }
   }
 
   initialRender() {
