@@ -18,6 +18,14 @@ class Counter extends HTMLElement {
     }
   }
 
+  get step () {
+    return this.getAttribute('step');
+  }
+
+  set step(newStep) {
+    this.setAttribute('step', newStep);
+  }
+
   initialRender() {
     this.innerHTML = '';
 
@@ -46,11 +54,16 @@ class Counter extends HTMLElement {
   }
 
   decrement() {
-    this.value -= 1;
+    this.value -= this.getAndParseStep();
   }
 
   increment() {
-    this.value += 1;
+    this.value += this.getAndParseStep();
+  }
+
+  getAndParseStep() {
+    const parsedStep = !this.step ? NaN : Number(this.step);
+    return Number.isNaN(parsedStep) ? 1 : parsedStep;
   }
 
   dispatchChangeEvent() {
