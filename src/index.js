@@ -26,6 +26,32 @@ class Counter extends HTMLElement {
     this.setAttribute('step', newStep);
   }
 
+  get disabled () {
+    return this.hasAttribute('disabled');
+  }
+
+  set disabled(newDisabled) {
+    if (newDisabled) {
+      this.setAttribute('disabled', '');
+    } else {
+      this.removeAttribute('disabled');
+    }
+  }
+
+  static get observedAttributes() {
+    return ['disabled'];
+  }
+
+  attributeChangedCallback(attributeName) {
+    if (attributeName === 'disabled') {
+      if (this.disabled) {
+        this.disableButtons();
+      } else {
+        this.enableButtons();
+      }
+    }
+  }
+
   initialRender() {
     this.innerHTML = '';
 
@@ -35,9 +61,11 @@ class Counter extends HTMLElement {
       this.decrement();
       this.dispatchChangeEvent();
     });
+    this.decrementButton = decrementButton;
     this.appendChild(decrementButton);
 
-    this.valueElement = document.createElement('span');
+    const valueElement = document.createElement('span');
+    this.valueElement = valueElement;
     this.appendChild(this.valueElement);
 
     const incrementButton = document.createElement('button');
@@ -46,6 +74,7 @@ class Counter extends HTMLElement {
       this.increment();
       this.dispatchChangeEvent();
     });
+    this.incrementButton = incrementButton;
     this.appendChild(incrementButton);
   }
 
@@ -68,6 +97,16 @@ class Counter extends HTMLElement {
 
   dispatchChangeEvent() {
     this.dispatchEvent(new Event('change'));
+  }
+
+  disableButtons() {
+    this.incrementButton.setAttribute('disabled', '');
+    this.decrementButton.setAttribute('disabled', '');
+  }
+
+  enableButtons() {
+    this.incrementButton.removeAttribute('disabled');
+    this.decrementButton.removeAttribute('disabled');
   }
 }
 
